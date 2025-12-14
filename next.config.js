@@ -22,8 +22,6 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
-  // Output standalone for Docker
-  output: 'standalone',
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
