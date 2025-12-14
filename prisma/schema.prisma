@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProductStatus {
+  AVAILABLE
+  COMING_SOON
+  IN_DEVELOPMENT
+}
+
+enum MediaType {
+  VIDEO
+  IMAGE
+  SCREENSHOT
+}
+
+enum InquiryType {
+  REQUEST_DEMO
+  CONTACT_SALES
+  GENERAL_INQUIRY
+  TECHNICAL_SUPPORT
+  OTHER
+}
+
+enum ContactMethod {
+  EMAIL
+  PHONE
+  EITHER
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  name        String
+  tagline     String?
+  description String   @db.Text
+  status      ProductStatus @default(IN_DEVELOPMENT)
+  thumbnail   String?
+  githubUrl   String?
+  youtubeUrl  String?
+  demoUrl     String?
+  pricing     String?  @db.Text
+  features    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  media       ProductMedia[]
+  contacts    Contact[]
+
+  @@index([slug])
+  @@index([status])
+}
+
+model ProductMedia {
+  id        String   @id @default(uuid())
+  productId String
+  type      MediaType
+  url       String
+  title     String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([productId, order])
+}
+
+model Contact {
+  id              String        @id @default(uuid())
+  name            String
+  email           String
+  company         String?
+  phone           String?
+  product         String?
+  inquiryType     InquiryType
+  message         String        @db.Text
+  preferredMethod ContactMethod @default(EMAIL)
+  source          String?
+  createdAt       DateTime      @default(now())
+  read            Boolean       @default(false)
+  responded       Boolean       @default(false)
+
+  productRelation Product?      @relation(fields: [product], references: [slug])
+
+  @@index([email])
+  @@index([product])
+  @@index([createdAt])
+  @@index([read])
+}
+
+model EmailConfig {
+  id                  String   @id @default("default")
+  enabled             Boolean  @default(false)
+  smtpHost            String?
+  smtpPort            Int?
+  smtpUser            String?
+  smtpPassword        String?  @db.Text
+  smtpSecure          Boolean  @default(true)
+  fromEmail           String?
+  fromName            String?
+  adminEmail          String?
+  confirmationTemplate String? @db.Text
+  notificationTemplate String? @db.Text
+  updatedAt           DateTime @updatedAt
+  updatedBy           String?
+}
+
+model KnowledgeBase {
+  id          String   @id @default(uuid())
+  title       String
+  content     String   @db.Text
+  category    String?
+  productSlug String?
+  embedding   Unsupported("vector(1536)")?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([productSlug])
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  lastLogin    DateTime?
+
+  @@index([email])
+}
+
