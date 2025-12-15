@@ -8,6 +8,10 @@ import ProductMedia from '@/components/products/ProductMedia';
 import ProductLinks from '@/components/products/ProductLinks';
 import ProductPricing from '@/components/products/ProductPricing';
 import ProductCTA from '@/components/products/ProductCTA';
+import ProductUseCases from '@/components/products/ProductUseCases';
+import ProductBenefits from '@/components/products/ProductBenefits';
+import ProductTechStack from '@/components/products/ProductTechStack';
+import ProductStats from '@/components/products/ProductStats';
 import Breadcrumb from '@/components/products/Breadcrumb';
 import type { Metadata } from 'next';
 
@@ -102,10 +106,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <>
       <Breadcrumb productName={product.name} />
       <ProductHero product={product} />
+      <ProductStats product={product} />
       <ProductOverview product={product} />
       {product.features && product.features.length > 0 && (
         <ProductFeatures product={product} />
       )}
+      <ProductUseCases product={product} />
+      <ProductBenefits product={product} />
+      <ProductTechStack product={product} />
       {product.media && product.media.length > 0 && (
         <ProductMedia media={product.media} />
       )}

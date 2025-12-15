@@ -49,15 +49,22 @@ select {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background-secondary);
+  background: var(--scrollbar-track, var(--color-background-secondary));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-text-tertiary);
+  background: var(--scrollbar-thumb, var(--color-text-tertiary));
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-secondary);
+  background: var(--scrollbar-thumb-hover, var(--color-text-secondary));
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color var(--transition-base), 
+              color var(--transition-base),
+              border-color var(--transition-base);
 }
 

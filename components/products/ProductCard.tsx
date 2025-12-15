@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/types';
@@ -8,47 +10,60 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const handleDemoClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (product.demoUrl) {
+      window.open(product.demoUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
-    <Link
-      href={`/products/${product.slug}`}
+    <article
+      className="product-card"
       style={{
-        display: 'block',
-        textDecoration: 'none',
-        color: 'inherit',
+        backgroundColor: 'var(--color-background)',
+        borderRadius: 'var(--radius-lg)',
+        overflow: 'hidden',
+        boxShadow: 'var(--shadow-card)',
+        transition: 'var(--transition-base)',
+        cursor: 'pointer',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
+        e.currentTarget.style.transform = 'translateY(-4px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = 'var(--shadow-card)';
+        e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      <article
-        className="product-card"
+      <Link
+        href={`/products/${product.slug}`}
         style={{
-          backgroundColor: 'var(--color-background)',
-          borderRadius: 'var(--radius-lg)',
-          overflow: 'hidden',
-          boxShadow: 'var(--shadow-card)',
-          transition: 'var(--transition-base)',
-          cursor: 'pointer',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
-          e.currentTarget.style.transform = 'translateY(-4px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = 'var(--shadow-card)';
-          e.currentTarget.style.transform = 'translateY(0)';
+          display: 'block',
+          textDecoration: 'none',
+          color: 'inherit',
+          flex: 1,
         }}
       >
-        {product.thumbnail && (
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              paddingTop: '56.25%', // 16:9 aspect ratio
-              backgroundColor: 'var(--color-background-tertiary)',
-              overflow: 'hidden',
-            }}
-          >
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            paddingTop: '56.25%', // 16:9 aspect ratio
+            backgroundColor: 'var(--color-background-tertiary)',
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {product.thumbnail ? (
             <Image
               src={product.thumbnail}
               alt={product.name}
@@ -58,8 +73,26 @@ export default function ProductCard({ product }: ProductCardProps) {
               }}
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-          </div>
-        )}
+          ) : (
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--color-text-tertiary)',
+                fontSize: 'var(--font-size-lg)',
+                fontWeight: 'var(--font-weight-medium)',
+              }}
+            >
+              {product.name}
+            </div>
+          )}
+        </div>
 
         <div
           style={{
@@ -132,8 +165,41 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
         </div>
-      </article>
-    </Link>
+      </Link>
+      
+      {product.demoUrl && (
+        <div
+          style={{
+            padding: 'var(--spacing-md) var(--spacing-lg)',
+            borderTop: '1px solid var(--color-background-tertiary)',
+          }}
+        >
+          <button
+            onClick={handleDemoClick}
+            style={{
+              width: '100%',
+              padding: 'var(--spacing-sm) var(--spacing-md)',
+              backgroundColor: 'var(--color-primary)',
+              color: 'white',
+              border: 'none',
+              borderRadius: 'var(--radius-md)',
+              fontSize: 'var(--font-size-sm)',
+              fontWeight: 'var(--font-weight-semibold)',
+              cursor: 'pointer',
+              transition: 'var(--transition-base)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-primary)';
+            }}
+          >
+            View Demo
+          </button>
+        </div>
+      )}
+    </article>
   );
 }
 

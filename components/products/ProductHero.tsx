@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Product } from '@/types';
 import StatusBadge from './StatusBadge';
@@ -15,6 +17,12 @@ interface ProductHeroProps {
 
 export default function ProductHero({ product }: ProductHeroProps) {
   const heroImage = product.media?.find((m) => m.type === 'IMAGE')?.url || product.thumbnail;
+
+  const handleDemoClick = () => {
+    if (product.demoUrl) {
+      window.open(product.demoUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <section
@@ -62,18 +70,53 @@ export default function ProductHero({ product }: ProductHeroProps) {
                 {product.tagline}
               </p>
             )}
+            {product.demoUrl && (
+              <div style={{ marginTop: 'var(--spacing-lg)' }}>
+                <button
+                  onClick={handleDemoClick}
+                  style={{
+                    padding: 'var(--spacing-md) var(--spacing-2xl)',
+                    backgroundColor: 'var(--color-primary)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: 'var(--radius-md)',
+                    fontSize: 'var(--font-size-lg)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    cursor: 'pointer',
+                    transition: 'var(--transition-base)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 'var(--spacing-sm)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)';
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-primary)';
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                >
+                  <span>🚀</span>
+                  <span>Try Live Demo</span>
+                </button>
+              </div>
+            )}
           </div>
-          {heroImage && (
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                paddingTop: '56.25%',
-                borderRadius: 'var(--radius-lg)',
-                overflow: 'hidden',
-                backgroundColor: 'var(--color-background-tertiary)',
-              }}
-            >
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              paddingTop: '56.25%',
+              borderRadius: 'var(--radius-lg)',
+              overflow: 'hidden',
+              backgroundColor: 'var(--color-background-tertiary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {heroImage ? (
               <Image
                 src={heroImage}
                 alt={product.name}
@@ -83,8 +126,28 @@ export default function ProductHero({ product }: ProductHeroProps) {
                 }}
                 priority
               />
-            </div>
-          )}
+            ) : (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--color-text-tertiary)',
+                  fontSize: 'var(--font-size-2xl)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  textAlign: 'center',
+                  padding: 'var(--spacing-xl)',
+                }}
+              >
+                {product.name}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

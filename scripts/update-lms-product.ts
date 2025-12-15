@@ -1,40 +1,20 @@
+/**
+ * Script to update the LMS product in the database
+ * Run with: npx ts-node scripts/update-lms-product.ts
+ * Or: DATABASE_URL=your_url npx ts-node scripts/update-lms-product.ts
+ */
+
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
 
-// Load environment variables from .env file if it exists
+// Load environment variables
 dotenv.config();
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Starting seed...');
+  console.log('Updating LMS product...');
 
-  // Create admin user
-  const hashedPassword = await bcrypt.hash('admin123', 10);
-  const admin = await prisma.admin.upsert({
-    where: { email: 'admin@studio42.dev' },
-    update: {},
-    create: {
-      email: 'admin@studio42.dev',
-      passwordHash: hashedPassword,
-      name: 'Admin User',
-    },
-  });
-  console.log('Created admin user:', admin.email);
-
-  // Create email config (disabled by default)
-  const emailConfig = await prisma.emailConfig.upsert({
-    where: { id: 'default' },
-    update: {},
-    create: {
-      id: 'default',
-      enabled: false,
-    },
-  });
-  console.log('Created email config');
-
-  // Create LMS product
   const lms = await prisma.product.upsert({
     where: { slug: 'lms' },
     update: {
@@ -143,49 +123,17 @@ async function main() {
       ],
     },
   });
-  console.log('Created/Updated product:', lms.name);
 
-  // Placeholder products removed - add real products as they become available
-
-  // Create media for LMS - remove old media first if updating
-  await prisma.productMedia.deleteMany({
-    where: { productId: lms.id },
-  });
-
-  // Create LMS media (can be added later when screenshots/videos are available)
-  // await prisma.productMedia.createMany({
-  //   data: [
-  //     {
-  //       productId: lms.id,
-  //       type: 'SCREENSHOT',
-  //       url: '/images/lms/dashboard.png',
-  //       title: 'Admin Dashboard',
-  //       order: 0,
-  //     },
-  //     {
-  //       productId: lms.id,
-  //       type: 'SCREENSHOT',
-  //       url: '/images/lms/course-viewer.png',
-  //       title: 'Course Viewer',
-  //       order: 1,
-  //     },
-  //     {
-  //       productId: lms.id,
-  //       type: 'SCREENSHOT',
-  //       url: '/images/lms/analytics.png',
-  //       title: 'Analytics Dashboard',
-  //       order: 2,
-  //     },
-  //   ],
-  // });
-  console.log('LMS product ready (media can be added later)');
-
-  console.log('Seed completed successfully!');
+  console.log('✅ LMS product updated successfully!');
+  console.log(`   Name: ${lms.name}`);
+  console.log(`   Status: ${lms.status}`);
+  console.log(`   Demo URL: ${lms.demoUrl}`);
+  console.log(`   Features: ${Array.isArray(lms.features) ? lms.features.length : 0} features`);
 }
 
 main()
   .catch((e) => {
-    console.error('Error during seed:', e);
+    console.error('❌ Error updating LMS product:', e);
     process.exit(1);
   })
   .finally(async () => {

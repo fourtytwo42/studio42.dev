@@ -1,12 +1,12 @@
 :root {
   /* Colors - Primary */
-  --color-primary: #6366f1;
-  --color-primary-dark: #4f46e5;
-  --color-primary-light: #818cf8;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #3b82f6;
   
   /* Colors - Secondary */
-  --color-secondary: #8b5cf6;
-  --color-secondary-dark: #7c3aed;
+  --color-secondary: #06b6d4;
+  --color-secondary-dark: #0891b2;
   
   /* Colors - Text */
   --color-text-primary: #111827;
@@ -23,8 +23,8 @@
   --color-status-available-bg: #d1fae5;
   --color-status-coming-soon: #f59e0b;
   --color-status-coming-soon-bg: #fef3c7;
-  --color-status-in-development: #6366f1;
-  --color-status-in-development-bg: #e0e7ff;
+  --color-status-in-development: #2563eb;
+  --color-status-in-development-bg: #dbeafe;
   
   /* Colors - Semantic */
   --color-success: #10b981;
@@ -102,5 +102,60 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-chat-widget: 9999;
+
+  /* Border */
+  --color-border: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode */
+.dark {
+  /* Colors - Primary */
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-primary-light: #60a5fa;
+  
+  /* Colors - Secondary */
+  --color-secondary: #22d3ee;
+  --color-secondary-dark: #06b6d4;
+  
+  /* Colors - Text */
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #d1d5db;
+  --color-text-tertiary: #9ca3af;
+  
+  /* Colors - Background */
+  --color-background: #111827;
+  --color-background-secondary: #1f2937;
+  --color-background-tertiary: #374151;
+  
+  /* Colors - Status */
+  --color-status-available: #34d399;
+  --color-status-available-bg: #065f46;
+  --color-status-coming-soon: #fbbf24;
+  --color-status-coming-soon-bg: #78350f;
+  --color-status-in-development: #3b82f6;
+  --color-status-in-development-bg: #1e3a8a;
+  
+  /* Colors - Semantic */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #f87171;
+  --color-info: #60a5fa;
+  
+  /* Shadows - Lighter for dark mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+  
+  /* Border */
+  --color-border: rgba(255, 255, 255, 0.1);
+  
+  /* Scrollbar */
+  --scrollbar-track: #1f2937;
+  --scrollbar-thumb: #4b5563;
+  --scrollbar-thumb-hover: #6b7280;
 }
 

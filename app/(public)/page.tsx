@@ -1,6 +1,11 @@
 import { prisma } from '@/lib/prisma';
 import ProductGrid from '@/components/products/ProductGrid';
 import { Product } from '@/types';
+import HeroSection from '@/components/home/HeroSection';
+import FeaturesSection from '@/components/home/FeaturesSection';
+import StatsSection from '@/components/home/StatsSection';
+import ValueProposition from '@/components/home/ValueProposition';
+import CTASection from '@/components/home/CTASection';
 
 async function getProducts(): Promise<Product[]> {
   try {
@@ -45,59 +50,45 @@ export default async function HomePage() {
 
   return (
     <main>
+      <HeroSection />
+      <StatsSection />
+      <FeaturesSection />
+      <ValueProposition />
       <section
-        className="hero-section"
+        id="products"
+        className="products-section"
         style={{
           padding: 'var(--spacing-5xl) var(--spacing-xl)',
-          textAlign: 'center',
           backgroundColor: 'var(--color-background-secondary)',
         }}
       >
         <div className="container">
-          <h1
-            style={{
-              fontSize: 'var(--font-size-5xl)',
-              fontWeight: 'var(--font-weight-extrabold)',
-              color: 'var(--color-text-primary)',
-              marginBottom: 'var(--spacing-lg)',
-              lineHeight: 'var(--line-height-tight)',
-            }}
-          >
-            Studio42.dev
-          </h1>
-          <p
-            style={{
-              fontSize: 'var(--font-size-xl)',
-              color: 'var(--color-text-secondary)',
-              marginBottom: 'var(--spacing-2xl)',
-            }}
-          >
-            Premium SaaS Products
-          </p>
-        </div>
-      </section>
-
-      <section
-        className="products-section"
-        style={{
-          padding: 'var(--spacing-5xl) var(--spacing-xl)',
-        }}
-      >
-        <div className="container">
-          <h2
-            style={{
-              fontSize: 'var(--font-size-3xl)',
-              fontWeight: 'var(--font-weight-bold)',
-              color: 'var(--color-text-primary)',
-              marginBottom: 'var(--spacing-xl)',
-              textAlign: 'center',
-            }}
-          >
-            Our Products
-          </h2>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-5xl)' }}>
+            <h2
+              style={{
+                fontSize: 'var(--font-size-3xl)',
+                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-text-primary)',
+                marginBottom: 'var(--spacing-md)',
+              }}
+            >
+              Our Products
+            </h2>
+            <p
+              style={{
+                fontSize: 'var(--font-size-lg)',
+                color: 'var(--color-text-secondary)',
+                maxWidth: '600px',
+                margin: '0 auto',
+              }}
+            >
+              Explore our collection of premium, self-hosted SaaS solutions designed for modern organizations.
+            </p>
+          </div>
           <ProductGrid products={products} />
         </div>
       </section>
+      <CTASection />
     </main>
   );
 }
