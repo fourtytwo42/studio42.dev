@@ -19,7 +19,7 @@ export default function ProductStats({ product }: ProductStatsProps) {
       className="product-stats"
       style={{
         padding: 'var(--spacing-5xl) var(--spacing-xl)',
-        background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)',
+        background: 'var(--gradient-primary)',
         color: 'white',
       }}
     >

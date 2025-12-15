@@ -22,7 +22,10 @@ export default function Header() {
           style={{
             fontSize: 'var(--font-size-xl)',
             fontWeight: 'var(--font-weight-bold)',
-            color: 'var(--color-text-primary)',
+            background: 'var(--gradient-primary)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
             textDecoration: 'none',
           }}
         >

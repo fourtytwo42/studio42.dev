@@ -179,7 +179,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             style={{
               width: '100%',
               padding: 'var(--spacing-sm) var(--spacing-md)',
-              backgroundColor: 'var(--color-primary)',
+              background: 'var(--gradient-primary-subtle)',
               color: 'white',
               border: 'none',
               borderRadius: 'var(--radius-md)',
@@ -189,10 +189,10 @@ export default function ProductCard({ product }: ProductCardProps) {
               transition: 'var(--transition-base)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)';
+              e.currentTarget.style.background = 'var(--gradient-primary)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-primary)';
+              e.currentTarget.style.background = 'var(--gradient-primary-subtle)';
             }}
           >
             View Demo

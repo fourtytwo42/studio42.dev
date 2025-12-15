@@ -131,7 +131,7 @@ export default function ProductBenefits({ product }: ProductBenefitsProps) {
                   width: '48px',
                   height: '48px',
                   borderRadius: 'var(--radius-md)',
-                  backgroundColor: 'var(--color-primary)',
+                  background: 'var(--gradient-primary-subtle)',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',

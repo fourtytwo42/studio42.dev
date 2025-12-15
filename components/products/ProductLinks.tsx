@@ -51,7 +51,7 @@ export default function ProductLinks({ product }: ProductLinksProps) {
                 alignItems: 'center',
                 gap: 'var(--spacing-sm)',
                 padding: 'var(--spacing-md) var(--spacing-xl)',
-                backgroundColor: 'var(--color-primary)',
+                background: 'var(--gradient-primary-subtle)',
                 color: 'white',
                 textDecoration: 'none',
                 borderRadius: 'var(--radius-md)',
@@ -60,10 +60,10 @@ export default function ProductLinks({ product }: ProductLinksProps) {
                 transition: 'var(--transition-base)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)';
+                e.currentTarget.style.background = 'var(--gradient-primary)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--color-primary)';
+                e.currentTarget.style.background = 'var(--gradient-primary-subtle)';
               }}
             >
               View Demo

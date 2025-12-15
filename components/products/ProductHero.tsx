@@ -76,7 +76,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
                   onClick={handleDemoClick}
                   style={{
                     padding: 'var(--spacing-md) var(--spacing-2xl)',
-                    backgroundColor: 'var(--color-primary)',
+                    background: 'var(--gradient-primary-subtle)',
                     color: 'white',
                     border: 'none',
                     borderRadius: 'var(--radius-md)',
@@ -89,11 +89,11 @@ export default function ProductHero({ product }: ProductHeroProps) {
                     gap: 'var(--spacing-sm)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)';
+                    e.currentTarget.style.background = 'var(--gradient-primary)';
                     e.currentTarget.style.transform = 'scale(1.05)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--color-primary)';
+                    e.currentTarget.style.background = 'var(--gradient-primary-subtle)';
                     e.currentTarget.style.transform = 'scale(1)';
                   }}
                 >

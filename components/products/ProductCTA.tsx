@@ -13,7 +13,7 @@ export default function ProductCTA({ product }: ProductCTAProps) {
       className="product-cta"
       style={{
         padding: 'var(--spacing-5xl) var(--spacing-xl)',
-        backgroundColor: 'var(--color-primary)',
+        background: 'var(--gradient-primary)',
         color: 'white',
       }}
     >
