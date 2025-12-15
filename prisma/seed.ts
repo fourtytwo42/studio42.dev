@@ -45,7 +45,7 @@ async function main() {
       thumbnail: '/images/lms-thumbnail.jpg',
       githubUrl: 'https://github.com/fourtytwo42/lms',
       demoUrl: 'https://lms.studio42.dev',
-      pricing: 'Self-hosted - Open source with optional support plans available',
+      pricing: 'Self-hosted with enterprise support plans available',
       features: [
         { 
           title: 'Course Management', 
@@ -98,7 +98,7 @@ async function main() {
       thumbnail: '/images/lms-thumbnail.jpg',
       githubUrl: 'https://github.com/fourtytwo42/lms',
       demoUrl: 'https://lms.studio42.dev',
-      pricing: 'Self-hosted - Open source with optional support plans available',
+      pricing: 'Self-hosted with enterprise support plans available',
       features: [
         { 
           title: 'Course Management', 
@@ -145,7 +145,191 @@ async function main() {
   });
   console.log('Created/Updated product:', lms.name);
 
-  // Placeholder products removed - add real products as they become available
+  // AI Microlearning LMS product
+  const aiMicroLms = await prisma.product.upsert({
+    where: { slug: 'ai-microlearning-lms' },
+    update: {
+      name: 'AI Microlearning LMS',
+      tagline: 'Zero-authoring, adaptive microlearning with AI tutoring',
+      description: 'Transform raw documents and URLs into adaptive, multimedia learning nuggets with zero human authoring. The AI microlearning platform automates ingestion, semantic chunking, narrative planning, and multimodal tutoring to deliver personalized learning paths for every role.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/ai-microlearning-lms.jpg',
+      demoUrl: 'https://lmsnuggets.studio42.dev',
+      pricing: 'Self-hosted with premium support tiers for AI workloads',
+      features: [
+        {
+          title: 'Zero Human Authoring',
+          description: 'Automated ingestion for files and URLs with semantic chunking, embedding, and nugget generation - no manual course building required.',
+        },
+        {
+          title: 'Adaptive Narrative Paths',
+          description: 'Choose-your-own-adventure narrative planning that adapts to learner knowledge gaps in real time.',
+        },
+        {
+          title: 'Conversational AI Tutor',
+          description: 'Voice + chat tutoring that delivers organic assessments without rigid quizzes, tuned for learner intent.',
+        },
+        {
+          title: 'Multimodal Nuggets',
+          description: 'Slides, AI imagery, and TTS audio per nugget with multiple voice quality tiers to control cost.',
+        },
+        {
+          title: 'Mastery & Analytics',
+          description: 'Real-time mastery tracking, knowledge-gap detection, and dashboards for admins and instructors.',
+        },
+        {
+          title: 'Secure & Self-Hosted',
+          description: 'Deploy on your infrastructure with PostgreSQL + pgvector, Redis, and PM2; no vendor lock-in.',
+        },
+        {
+          title: 'Background Job Pipeline',
+          description: 'BullMQ-driven ingestion, content generation, and multimedia jobs with retries and monitoring.',
+        },
+        {
+          title: 'Admin Console & Visibility',
+          description: 'Full visibility into ingestion jobs, content state, and AI outputs with audit-friendly logging.',
+        },
+      ],
+    },
+    create: {
+      slug: 'ai-microlearning-lms',
+      name: 'AI Microlearning LMS',
+      tagline: 'Zero-authoring, adaptive microlearning with AI tutoring',
+      description: 'Transform raw documents and URLs into adaptive, multimedia learning nuggets with zero human authoring. The AI microlearning platform automates ingestion, semantic chunking, narrative planning, and multimodal tutoring to deliver personalized learning paths for every role.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/ai-microlearning-lms.jpg',
+      demoUrl: 'https://lmsnuggets.studio42.dev',
+      pricing: 'Self-hosted with premium support tiers for AI workloads',
+      features: [
+        {
+          title: 'Zero Human Authoring',
+          description: 'Automated ingestion for files and URLs with semantic chunking, embedding, and nugget generation - no manual course building required.',
+        },
+        {
+          title: 'Adaptive Narrative Paths',
+          description: 'Choose-your-own-adventure narrative planning that adapts to learner knowledge gaps in real time.',
+        },
+        {
+          title: 'Conversational AI Tutor',
+          description: 'Voice + chat tutoring that delivers organic assessments without rigid quizzes, tuned for learner intent.',
+        },
+        {
+          title: 'Multimodal Nuggets',
+          description: 'Slides, AI imagery, and TTS audio per nugget with multiple voice quality tiers to control cost.',
+        },
+        {
+          title: 'Mastery & Analytics',
+          description: 'Real-time mastery tracking, knowledge-gap detection, and dashboards for admins and instructors.',
+        },
+        {
+          title: 'Secure & Self-Hosted',
+          description: 'Deploy on your infrastructure with PostgreSQL + pgvector, Redis, and PM2; no vendor lock-in.',
+        },
+        {
+          title: 'Background Job Pipeline',
+          description: 'BullMQ-driven ingestion, content generation, and multimedia jobs with retries and monitoring.',
+        },
+        {
+          title: 'Admin Console & Visibility',
+          description: 'Full visibility into ingestion jobs, content state, and AI outputs with audit-friendly logging.',
+        },
+      ],
+    },
+  });
+  console.log('Created/Updated product:', aiMicroLms.name);
+
+  // Organizational AI Assistant product
+  const orgAssistant = await prisma.product.upsert({
+    where: { slug: 'organizational-ai-assistant' },
+    update: {
+      name: 'Organizational AI Assistant',
+      tagline: 'Secure AI co-pilot for every conversation, file, and email',
+      description: 'Context-aware AI copilot that unifies email, documents, calendar, and files with strict department-level permissions. Delivers semantic search, proactive reminders, and tool-based actions with full auditability and enterprise controls.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/organizational-ai-assistant.jpg',
+      demoUrl: 'https://airepository.studio42.dev',
+      pricing: 'Self-hosted enterprise licensing with premium support',
+      features: [
+        {
+          title: 'Context-Aware Chat',
+          description: 'Natural language answers grounded in your org emails, documents, calendar, and files.',
+        },
+        {
+          title: 'Department-Level Security',
+          description: 'RLS-enforced data isolation with department-aware tool permissions and access checks.',
+        },
+        {
+          title: 'Tool-Enabled Actions',
+          description: 'Execute actions like sending emails and creating calendar events with validated tool calls.',
+        },
+        {
+          title: 'Semantic Search',
+          description: 'Hybrid keyword + vector search on PostgreSQL + pgvector tuned for organizational content.',
+        },
+        {
+          title: 'Proactive Alerts',
+          description: 'Reminders for missed emails, deadlines, and follow-ups with configurable guardrails.',
+        },
+        {
+          title: 'Audit & Compliance',
+          description: 'Comprehensive audit logging, usage tracking, and rate limits for every tool execution.',
+        },
+        {
+          title: 'Admin Console',
+          description: 'Controls for departments, users, costs, API keys, and usage policies in one place.',
+        },
+        {
+          title: 'Production-Ready Delivery',
+          description: 'PM2 + Playwright coverage, streaming responses, and deployment patterns for scale.',
+        },
+      ],
+    },
+    create: {
+      slug: 'organizational-ai-assistant',
+      name: 'Organizational AI Assistant',
+      tagline: 'Secure AI co-pilot for every conversation, file, and email',
+      description: 'Context-aware AI copilot that unifies email, documents, calendar, and files with strict department-level permissions. Delivers semantic search, proactive reminders, and tool-based actions with full auditability and enterprise controls.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/organizational-ai-assistant.jpg',
+      demoUrl: 'https://airepository.studio42.dev',
+      pricing: 'Self-hosted enterprise licensing with premium support',
+      features: [
+        {
+          title: 'Context-Aware Chat',
+          description: 'Natural language answers grounded in your org emails, documents, calendar, and files.',
+        },
+        {
+          title: 'Department-Level Security',
+          description: 'RLS-enforced data isolation with department-aware tool permissions and access checks.',
+        },
+        {
+          title: 'Tool-Enabled Actions',
+          description: 'Execute actions like sending emails and creating calendar events with validated tool calls.',
+        },
+        {
+          title: 'Semantic Search',
+          description: 'Hybrid keyword + vector search on PostgreSQL + pgvector tuned for organizational content.',
+        },
+        {
+          title: 'Proactive Alerts',
+          description: 'Reminders for missed emails, deadlines, and follow-ups with configurable guardrails.',
+        },
+        {
+          title: 'Audit & Compliance',
+          description: 'Comprehensive audit logging, usage tracking, and rate limits for every tool execution.',
+        },
+        {
+          title: 'Admin Console',
+          description: 'Controls for departments, users, costs, API keys, and usage policies in one place.',
+        },
+        {
+          title: 'Production-Ready Delivery',
+          description: 'PM2 + Playwright coverage, streaming responses, and deployment patterns for scale.',
+        },
+      ],
+    },
+  });
+  console.log('Created/Updated product:', orgAssistant.name);
 
   // Create media for LMS - remove old media first if updating
   await prisma.productMedia.deleteMany({

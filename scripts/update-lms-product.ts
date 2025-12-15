@@ -25,7 +25,7 @@ async function main() {
       thumbnail: '/images/lms-thumbnail.jpg',
       githubUrl: 'https://github.com/fourtytwo42/lms',
       demoUrl: 'https://lms.studio42.dev',
-      pricing: 'Self-hosted - Open source with optional support plans available',
+      pricing: 'Self-hosted with enterprise support plans available',
       features: [
         { 
           title: 'Course Management', 
@@ -78,7 +78,7 @@ async function main() {
       thumbnail: '/images/lms-thumbnail.jpg',
       githubUrl: 'https://github.com/fourtytwo42/lms',
       demoUrl: 'https://lms.studio42.dev',
-      pricing: 'Self-hosted - Open source with optional support plans available',
+      pricing: 'Self-hosted with enterprise support plans available',
       features: [
         { 
           title: 'Course Management', 
