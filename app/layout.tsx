@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/shared/ThemeProvider';
 import ChatWidget from '@/components/ai/ChatWidget';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: 'Studio42.dev - Premium SaaS Products',
   description: 'Premium SaaS product showcase and marketing website',
 };
