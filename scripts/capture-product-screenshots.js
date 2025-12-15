@@ -14,6 +14,16 @@ const targets = [
     url: 'https://airepository.studio42.dev',
     fileBase: 'organizational-ai-assistant',
   },
+  {
+    name: 'ITSM Helpdesk',
+    url: 'https://itsm.studio42.dev',
+    fileBase: 'itsm-helpdesk',
+  },
+  {
+    name: 'Restaurant Order & Delivery App',
+    url: 'https://fooddelivery.studio42.dev',
+    fileBase: 'restaurant-order-delivery',
+  },
 ];
 
 async function ensureDir(dirPath) {

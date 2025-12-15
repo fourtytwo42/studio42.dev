@@ -331,6 +331,192 @@ async function main() {
   });
   console.log('Created/Updated product:', orgAssistant.name);
 
+  // ITSM Helpdesk product
+  const itsmHelpdesk = await prisma.product.upsert({
+    where: { slug: 'itsm-helpdesk' },
+    update: {
+      name: 'ITSM Helpdesk',
+      tagline: 'Modern IT Service Management made simple',
+      description: 'Complete IT Service Management platform with AI-powered ticketing, knowledge base, asset management (CMDB), change management, and comprehensive analytics. Self-hostable solution designed to compete with Freshservice and Freshdesk, featuring multi-channel ticket intake, AI chat widget, SLA tracking, and beautiful responsive UI.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/itsm-helpdesk.jpg',
+      demoUrl: 'https://itsm.studio42.dev',
+      pricing: 'Self-hosted with enterprise support plans available',
+      features: [
+        {
+          title: 'Multi-Channel Ticket Intake',
+          description: 'Email tickets (IMAP/POP3), public form, API, and AI chat widget for comprehensive ticket creation from any source.',
+        },
+        {
+          title: 'AI-Powered Support',
+          description: 'Groq GPT OSS 20B model with OpenAI-compatible tool calling, chat widget with knowledge base access, learns from resolved tickets.',
+        },
+        {
+          title: 'Knowledge Base',
+          description: 'Auto-creation of KB articles from resolved tickets, semantic and keyword search with pgvector, categories and tags.',
+        },
+        {
+          title: 'Asset Management (CMDB)',
+          description: 'Complete Configuration Management Database with hardware, software, network devices, cloud resources, and relationship mapping.',
+        },
+        {
+          title: 'Change Management',
+          description: 'Change requests with flexible approval workflows, risk assessment, integration with tickets, and change types (Standard, Normal, Emergency).',
+        },
+        {
+          title: 'SLA & Escalation',
+          description: 'SLA tracking for response and resolution times, priority levels, auto-escalation rules, and assignment strategies.',
+        },
+        {
+          title: 'Analytics & Reporting',
+          description: 'Comprehensive dashboards with MTTR, ticket volume, agent performance, SLA compliance, custom reports, and CSV/PDF exports.',
+        },
+        {
+          title: 'Fully Configurable',
+          description: 'All settings configurable through admin UI (email, auth, branding, custom fields), stored in database, no env file dependencies.',
+        },
+      ],
+    },
+    create: {
+      slug: 'itsm-helpdesk',
+      name: 'ITSM Helpdesk',
+      tagline: 'Modern IT Service Management made simple',
+      description: 'Complete IT Service Management platform with AI-powered ticketing, knowledge base, asset management (CMDB), change management, and comprehensive analytics. Self-hostable solution designed to compete with Freshservice and Freshdesk, featuring multi-channel ticket intake, AI chat widget, SLA tracking, and beautiful responsive UI.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/itsm-helpdesk.jpg',
+      demoUrl: 'https://itsm.studio42.dev',
+      pricing: 'Self-hosted with enterprise support plans available',
+      features: [
+        {
+          title: 'Multi-Channel Ticket Intake',
+          description: 'Email tickets (IMAP/POP3), public form, API, and AI chat widget for comprehensive ticket creation from any source.',
+        },
+        {
+          title: 'AI-Powered Support',
+          description: 'Groq GPT OSS 20B model with OpenAI-compatible tool calling, chat widget with knowledge base access, learns from resolved tickets.',
+        },
+        {
+          title: 'Knowledge Base',
+          description: 'Auto-creation of KB articles from resolved tickets, semantic and keyword search with pgvector, categories and tags.',
+        },
+        {
+          title: 'Asset Management (CMDB)',
+          description: 'Complete Configuration Management Database with hardware, software, network devices, cloud resources, and relationship mapping.',
+        },
+        {
+          title: 'Change Management',
+          description: 'Change requests with flexible approval workflows, risk assessment, integration with tickets, and change types (Standard, Normal, Emergency).',
+        },
+        {
+          title: 'SLA & Escalation',
+          description: 'SLA tracking for response and resolution times, priority levels, auto-escalation rules, and assignment strategies.',
+        },
+        {
+          title: 'Analytics & Reporting',
+          description: 'Comprehensive dashboards with MTTR, ticket volume, agent performance, SLA compliance, custom reports, and CSV/PDF exports.',
+        },
+        {
+          title: 'Fully Configurable',
+          description: 'All settings configurable through admin UI (email, auth, branding, custom fields), stored in database, no env file dependencies.',
+        },
+      ],
+    },
+  });
+  console.log('Created/Updated product:', itsmHelpdesk.name);
+
+  // Restaurant Order & Delivery App product
+  const restaurantApp = await prisma.product.upsert({
+    where: { slug: 'restaurant-order-delivery' },
+    update: {
+      name: 'Restaurant Order & Delivery App',
+      tagline: 'Complete restaurant ordering and delivery management system',
+      description: 'Comprehensive self-hostable restaurant order and delivery application featuring full order management, POS system, delivery driver tracking, gift cards, loyalty points, coupons, and complete analytics. Built with Next.js 16, featuring DoorDash-style customer interface, touch-screen POS, mobile driver app with GPS tracking, and comprehensive admin panel.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/restaurant-order-delivery.jpg',
+      demoUrl: 'https://fooddelivery.studio42.dev',
+      pricing: 'Self-hosted with restaurant support plans available',
+      features: [
+        {
+          title: 'Customer Ordering',
+          description: 'DoorDash-style interface with menu browsing, search, filters, item customization with modifiers, guest checkout or account creation, real-time order tracking.',
+        },
+        {
+          title: 'Point of Sale (POS)',
+          description: 'Touch-screen optimized interface for creating orders, generating gift cards, viewing and managing all orders, printing receipts, marking orders complete.',
+        },
+        {
+          title: 'Delivery Management',
+          description: 'Mobile-optimized driver app with GPS tracking, route optimization, turn-by-turn directions, auto-assignment based on location, native map integration.',
+        },
+        {
+          title: 'Payment Processing',
+          description: 'Stripe and PayPal integration, Apple Pay and Google Pay support, gift cards (virtual and physical), coupon codes, loyalty points system, cash on delivery.',
+        },
+        {
+          title: 'Menu Management',
+          description: 'Flexible category system, time-based availability, complex modifier system (required/optional, groups), dietary tags and allergen information, featured items.',
+        },
+        {
+          title: 'Analytics & Reporting',
+          description: 'Sales dashboards, order trends and popular items, gift card analytics, staff performance metrics, exportable reports (CSV, PDF).',
+        },
+        {
+          title: 'User Roles',
+          description: 'Admin, Manager, Staff/Employee, Delivery Driver, and Customer roles with appropriate permissions for each user type.',
+        },
+        {
+          title: 'Self-Hostable',
+          description: 'Deploy on your own VPS (Ubuntu 22.04), full control over data, no recurring SaaS fees, complete customization available.',
+        },
+      ],
+    },
+    create: {
+      slug: 'restaurant-order-delivery',
+      name: 'Restaurant Order & Delivery App',
+      tagline: 'Complete restaurant ordering and delivery management system',
+      description: 'Comprehensive self-hostable restaurant order and delivery application featuring full order management, POS system, delivery driver tracking, gift cards, loyalty points, coupons, and complete analytics. Built with Next.js 16, featuring DoorDash-style customer interface, touch-screen POS, mobile driver app with GPS tracking, and comprehensive admin panel.',
+      status: 'AVAILABLE',
+      thumbnail: '/images/restaurant-order-delivery.jpg',
+      demoUrl: 'https://fooddelivery.studio42.dev',
+      pricing: 'Self-hosted with restaurant support plans available',
+      features: [
+        {
+          title: 'Customer Ordering',
+          description: 'DoorDash-style interface with menu browsing, search, filters, item customization with modifiers, guest checkout or account creation, real-time order tracking.',
+        },
+        {
+          title: 'Point of Sale (POS)',
+          description: 'Touch-screen optimized interface for creating orders, generating gift cards, viewing and managing all orders, printing receipts, marking orders complete.',
+        },
+        {
+          title: 'Delivery Management',
+          description: 'Mobile-optimized driver app with GPS tracking, route optimization, turn-by-turn directions, auto-assignment based on location, native map integration.',
+        },
+        {
+          title: 'Payment Processing',
+          description: 'Stripe and PayPal integration, Apple Pay and Google Pay support, gift cards (virtual and physical), coupon codes, loyalty points system, cash on delivery.',
+        },
+        {
+          title: 'Menu Management',
+          description: 'Flexible category system, time-based availability, complex modifier system (required/optional, groups), dietary tags and allergen information, featured items.',
+        },
+        {
+          title: 'Analytics & Reporting',
+          description: 'Sales dashboards, order trends and popular items, gift card analytics, staff performance metrics, exportable reports (CSV, PDF).',
+        },
+        {
+          title: 'User Roles',
+          description: 'Admin, Manager, Staff/Employee, Delivery Driver, and Customer roles with appropriate permissions for each user type.',
+        },
+        {
+          title: 'Self-Hostable',
+          description: 'Deploy on your own VPS (Ubuntu 22.04), full control over data, no recurring SaaS fees, complete customization available.',
+        },
+      ],
+    },
+  });
+  console.log('Created/Updated product:', restaurantApp.name);
+
   // Create media for LMS - remove old media first if updating
   await prisma.productMedia.deleteMany({
     where: { productId: lms.id },
