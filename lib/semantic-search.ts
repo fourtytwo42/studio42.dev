@@ -61,7 +61,8 @@ export async function upsertKnowledgeBaseEntry(
   id: string,
   title: string,
   content: string,
-  category: string
+  category: string,
+  productSlug?: string
 ): Promise<void> {
   try {
     // Generate embedding for the content
@@ -69,13 +70,14 @@ export async function upsertKnowledgeBaseEntry(
 
     // Use raw SQL for vector operations since Prisma doesn't support vector type directly
     await prisma.$executeRaw`
-      INSERT INTO "KnowledgeBase" (id, title, content, category, embedding, "createdAt", "updatedAt")
-      VALUES (${id}, ${title}, ${content}, ${category}, ${JSON.stringify(embedding)}::vector, NOW(), NOW())
+      INSERT INTO "KnowledgeBase" (id, title, content, category, "productSlug", embedding, "createdAt", "updatedAt")
+      VALUES (${id}, ${title}, ${content}, ${category}, ${productSlug || null}, ${JSON.stringify(embedding)}::vector, NOW(), NOW())
       ON CONFLICT (id) 
       DO UPDATE SET
         title = ${title},
         content = ${content},
         category = ${category},
+        "productSlug" = ${productSlug || null},
         embedding = ${JSON.stringify(embedding)}::vector,
         "updatedAt" = NOW()
     `;

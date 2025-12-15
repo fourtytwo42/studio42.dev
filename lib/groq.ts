@@ -45,18 +45,20 @@ export async function generateChatCompletion(
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-  const client = getGroqClient();
+  // Note: Groq doesn't have a direct embedding API, so we use OpenAI-compatible embedding
+  const embeddingModel = process.env.EMBEDDING_MODEL || 'text-embedding-3-small';
   
-  // Note: Groq doesn't have a direct embedding API, so we'll use OpenAI-compatible embedding
-  // For now, we'll use a workaround or external embedding service
-  // This is a placeholder - you may need to use OpenAI's embedding API or another service
-  const embeddingModel = getEnvVar('EMBEDDING_MODEL', 'text-embedding-3-small');
-  
-  // If using OpenAI for embeddings (common approach)
+  // Use OpenAI for embeddings (common approach)
   if (embeddingModel.includes('text-embedding')) {
-    const OpenAI = require('openai');
+    const { default: OpenAI } = await import('openai');
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+    
+    if (!openaiApiKey) {
+      throw new Error('OPENAI_API_KEY is required for embedding generation. Please set it in your .env file.');
+    }
+    
     const openai = new OpenAI({
-      apiKey: getEnvVar('OPENAI_API_KEY', process.env.OPENAI_API_KEY || ''),
+      apiKey: openaiApiKey,
     });
     
     const response = await openai.embeddings.create({
