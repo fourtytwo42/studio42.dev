@@ -4,6 +4,7 @@ import { prisma } from './prisma';
 import { verifyPassword } from './password';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true, // Trust the host for NextAuth.js v5
   providers: [
     Credentials({
       name: 'Credentials',
