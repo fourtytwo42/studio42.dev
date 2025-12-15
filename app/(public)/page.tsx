@@ -7,6 +7,9 @@ import StatsSection from '@/components/home/StatsSection';
 import ValueProposition from '@/components/home/ValueProposition';
 import CTASection from '@/components/home/CTASection';
 
+// Force dynamic rendering to always fetch fresh product data
+export const dynamic = 'force-dynamic';
+
 async function getProducts(): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
