@@ -6,30 +6,59 @@ interface ProductUseCasesProps {
   product: Product;
 }
 
-const useCases = [
-  {
-    title: 'Corporate Training',
-    description: 'Deliver comprehensive employee onboarding, compliance training, and skill development programs at scale.',
-    icon: '🏢',
-  },
-  {
-    title: 'Educational Institutions',
-    description: 'Manage courses, track student progress, and deliver engaging educational content for schools and universities.',
-    icon: '🎓',
-  },
-  {
-    title: 'Professional Development',
-    description: 'Enable continuous learning with certification programs, workshops, and professional skill enhancement.',
-    icon: '📈',
-  },
-  {
-    title: 'Customer Education',
-    description: 'Train customers on your products and services, reducing support burden and increasing satisfaction.',
-    icon: '👥',
-  },
-];
+const getUseCases = (productSlug: string) => {
+  if (productSlug === 'ai-microlearning-lms') {
+    return [
+      {
+        title: 'Corporate Training',
+        description: 'Transform training materials into adaptive microlearning with zero authoring. Perfect for onboarding, compliance, and skill development.',
+        icon: '🏢',
+      },
+      {
+        title: 'Educational Institutions',
+        description: 'Automatically convert textbooks and course materials into interactive, multimedia learning nuggets with AI tutoring.',
+        icon: '🎓',
+      },
+      {
+        title: 'Professional Development',
+        description: 'Create personalized learning paths that adapt to knowledge gaps, delivering targeted training for every role.',
+        icon: '📈',
+      },
+      {
+        title: 'Customer Education',
+        description: 'Turn product documentation into engaging microlearning experiences that help customers master your products faster.',
+        icon: '👥',
+      },
+    ];
+  }
+  
+  // Default use cases
+  return [
+    {
+      title: 'Corporate Training',
+      description: 'Deliver comprehensive employee onboarding, compliance training, and skill development programs at scale.',
+      icon: '🏢',
+    },
+    {
+      title: 'Educational Institutions',
+      description: 'Manage courses, track student progress, and deliver engaging educational content for schools and universities.',
+      icon: '🎓',
+    },
+    {
+      title: 'Professional Development',
+      description: 'Enable continuous learning with certification programs, workshops, and professional skill enhancement.',
+      icon: '📈',
+    },
+    {
+      title: 'Customer Education',
+      description: 'Train customers on your products and services, reducing support burden and increasing satisfaction.',
+      icon: '👥',
+    },
+  ];
+};
 
 export default function ProductUseCases({ product }: ProductUseCasesProps) {
+  const useCases = getUseCases(product.slug);
   return (
     <section
       className="product-use-cases"

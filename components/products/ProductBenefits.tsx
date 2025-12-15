@@ -6,34 +6,67 @@ interface ProductBenefitsProps {
   product: Product;
 }
 
-const benefits = [
-  {
-    title: 'Self-Hosted & Private',
-    description: 'Complete control over your data with on-premise deployment. No vendor lock-in, no data sharing.',
-  },
-  {
-    title: 'Cost Effective',
-    description: 'Transparent pricing with no per-user licensing fees. Pay only for the solution and optional professional support.',
-  },
-  {
-    title: 'Fully Customizable',
-    description: 'White-label solution that you can brand and customize to match your organization\'s identity.',
-  },
-  {
-    title: 'Modern Technology',
-    description: 'Built with Next.js 16, React 19, and PostgreSQL. Fast, scalable, and future-proof architecture.',
-  },
-  {
-    title: 'Comprehensive Analytics',
-    description: 'Track learner progress, completion rates, and engagement metrics with detailed reporting dashboards.',
-  },
-  {
-    title: 'Enterprise Ready',
-    description: 'Role-based access control, bulk operations, and advanced features for large organizations.',
-  },
-];
+const getBenefits = (productSlug: string) => {
+  if (productSlug === 'ai-microlearning-lms') {
+    return [
+      {
+        title: 'Zero Human Authoring',
+        description: 'Transform raw documents and URLs into complete learning experiences automatically. No manual content creation required.',
+      },
+      {
+        title: 'Adaptive Learning Paths',
+        description: 'Choose-your-own-adventure narrative planning that adapts in real-time based on learner knowledge gaps and choices.',
+      },
+      {
+        title: 'Multimodal Content',
+        description: 'Each learning nugget includes text, AI-generated images, and TTS audio with multiple voice quality tiers for cost control.',
+      },
+      {
+        title: 'Conversational AI Tutor',
+        description: 'Natural language interaction with AI tutor that delivers organic assessments without rigid quizzes.',
+      },
+      {
+        title: 'Complete Visibility',
+        description: 'Admin console provides full visibility into ingestion jobs, content state, AI outputs, and system processes.',
+      },
+      {
+        title: 'Self-Hosted & Secure',
+        description: 'Deploy on your infrastructure with PostgreSQL + pgvector, Redis, and PM2. No vendor lock-in, complete data control.',
+      },
+    ];
+  }
+  
+  // Default benefits
+  return [
+    {
+      title: 'Self-Hosted & Private',
+      description: 'Complete control over your data with on-premise deployment. No vendor lock-in, no data sharing.',
+    },
+    {
+      title: 'Cost Effective',
+      description: 'Transparent pricing with no per-user licensing fees. Pay only for the solution and optional professional support.',
+    },
+    {
+      title: 'Fully Customizable',
+      description: 'White-label solution that you can brand and customize to match your organization\'s identity.',
+    },
+    {
+      title: 'Modern Technology',
+      description: 'Built with Next.js 16, React 19, and PostgreSQL. Fast, scalable, and future-proof architecture.',
+    },
+    {
+      title: 'Comprehensive Analytics',
+      description: 'Track learner progress, completion rates, and engagement metrics with detailed reporting dashboards.',
+    },
+    {
+      title: 'Enterprise Ready',
+      description: 'Role-based access control, bulk operations, and advanced features for large organizations.',
+    },
+  ];
+};
 
 export default function ProductBenefits({ product }: ProductBenefitsProps) {
+  const benefits = getBenefits(product.slug);
   return (
     <section
       className="product-benefits"

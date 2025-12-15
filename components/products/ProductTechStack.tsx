@@ -6,16 +6,31 @@ interface ProductTechStackProps {
   product: Product;
 }
 
-const techStack = [
-  { name: 'Next.js 16', category: 'Framework', description: 'Server-side rendering and API routes' },
-  { name: 'React 19', category: 'UI Library', description: 'Modern React with Server Components' },
-  { name: 'PostgreSQL 15+', category: 'Database', description: 'Robust relational database with pgvector' },
-  { name: 'Prisma', category: 'ORM', description: 'Type-safe database access' },
-  { name: 'TypeScript', category: 'Language', description: 'Type-safe development' },
-  { name: 'Tailwind CSS 4', category: 'Styling', description: 'Utility-first CSS framework' },
-];
+const getTechStack = (productSlug: string) => {
+  if (productSlug === 'ai-microlearning-lms') {
+    return [
+      { name: 'Next.js 15', category: 'Framework', description: 'App Router with server-side rendering' },
+      { name: 'React 19', category: 'UI Library', description: 'Modern React with Server Components' },
+      { name: 'PostgreSQL 15+', category: 'Database', description: 'With pgvector for semantic search' },
+      { name: 'OpenAI GPT-5.1', category: 'AI', description: 'Mini/Nano models with function calling' },
+      { name: 'BullMQ + Redis', category: 'Job Queue', description: 'Background processing and job management' },
+      { name: 'Tailwind CSS 4.0', category: 'Styling', description: 'CSS-first configuration' },
+    ];
+  }
+  
+  // Default tech stack
+  return [
+    { name: 'Next.js 16', category: 'Framework', description: 'Server-side rendering and API routes' },
+    { name: 'React 19', category: 'UI Library', description: 'Modern React with Server Components' },
+    { name: 'PostgreSQL 15+', category: 'Database', description: 'Robust relational database with pgvector' },
+    { name: 'Prisma', category: 'ORM', description: 'Type-safe database access' },
+    { name: 'TypeScript', category: 'Language', description: 'Type-safe development' },
+    { name: 'Tailwind CSS 4', category: 'Styling', description: 'Utility-first CSS framework' },
+  ];
+};
 
 export default function ProductTechStack({ product }: ProductTechStackProps) {
+  const techStack = getTechStack(product.slug);
   return (
     <section
       className="product-tech-stack"
