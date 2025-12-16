@@ -11,10 +11,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
-        DATABASE_URL: 'postgresql://studio42_user:znepUX6LUlku9XkTSjhotxHKh@localhost:5432/studio42_website',
-        NEXT_PUBLIC_APP_URL: 'http://localhost:3000',
-        NEXTAUTH_SECRET: 'qVzK4Ac5ppVT2kCf0s1DeJF57RRshz52PwhZnrCLbIE',
-        NEXTAUTH_URL: 'http://localhost:3000',
+        // All secrets are loaded from .env file via env_file property above
+        // Do not commit API keys or secrets to version control
       },
       error_file: './logs/pm2-error.log',
       out_file: './logs/pm2-out.log',

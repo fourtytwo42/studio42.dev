@@ -76,28 +76,63 @@ export default function FeaturesSection() {
             <div
               key={index}
               style={{
-                padding: 'var(--spacing-xl)',
+                padding: 'var(--spacing-2xl)',
                 backgroundColor: 'var(--color-background)',
-                borderRadius: 'var(--radius-lg)',
+                borderRadius: 'var(--radius-xl)',
                 border: '1px solid var(--color-border)',
                 transition: 'var(--transition-base)',
                 textAlign: 'center',
+                position: 'relative',
+                overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
                 e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
                 e.currentTarget.style.borderColor = 'var(--color-primary)';
+                const icon = e.currentTarget.querySelector('[data-icon]') as HTMLElement;
+                const accent = e.currentTarget.querySelector('.gradient-accent') as HTMLElement;
+                if (icon) {
+                  icon.style.transform = 'scale(1.2) rotate(5deg)';
+                }
+                if (accent) {
+                  accent.style.opacity = '1';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 e.currentTarget.style.boxShadow = 'var(--shadow-card)';
                 e.currentTarget.style.borderColor = 'var(--color-border)';
+                const icon = e.currentTarget.querySelector('[data-icon]') as HTMLElement;
+                const accent = e.currentTarget.querySelector('.gradient-accent') as HTMLElement;
+                if (icon) {
+                  icon.style.transform = 'scale(1) rotate(0deg)';
+                }
+                if (accent) {
+                  accent.style.opacity = '0';
+                }
               }}
             >
+              {/* Gradient accent */}
               <div
+                className="gradient-accent"
                 style={{
-                  fontSize: '48px',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '4px',
+                  background: 'var(--gradient-primary)',
+                  opacity: 0,
+                  transition: 'var(--transition-base)',
+                }}
+              />
+              <div
+                data-icon
+                style={{
+                  fontSize: '56px',
                   marginBottom: 'var(--spacing-md)',
+                  transition: 'var(--transition-base)',
+                  display: 'inline-block',
                 }}
               >
                 {feature.icon}

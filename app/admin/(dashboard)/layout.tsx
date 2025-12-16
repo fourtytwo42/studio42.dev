@@ -1,6 +1,7 @@
-import { auth, signOut } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import AdminHeader from '@/components/admin/AdminHeader';
 
 export default async function AdminLayout({
   children,
@@ -36,36 +37,7 @@ export default async function AdminLayout({
           }}>
             Admin Dashboard
           </h1>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--spacing-md)',
-            fontSize: 'var(--font-size-sm)',
-            color: 'var(--color-text-secondary)',
-          }}>
-            <span>{session.user?.email}</span>
-            <form
-              action={async () => {
-                'use server';
-                await signOut({ redirectTo: '/admin/login' });
-              }}
-            >
-              <button
-                type="submit"
-                style={{
-                  padding: 'var(--spacing-sm) var(--spacing-md)',
-                  backgroundColor: 'transparent',
-                  color: 'var(--color-text-primary)',
-                  border: '1px solid var(--color-text-tertiary)',
-                  borderRadius: 'var(--radius-md)',
-                  cursor: 'pointer',
-                  fontSize: 'var(--font-size-sm)',
-                }}
-              >
-                Logout
-              </button>
-            </form>
-          </div>
+          <AdminHeader email={session.user?.email || ''} />
         </div>
       </nav>
       <div style={{

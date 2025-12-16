@@ -5,17 +5,87 @@ import { checkRateLimit } from '@/lib/rate-limit';
 import { prisma } from '@/lib/prisma';
 import { contactFormSchema } from '@/lib/validation';
 
-const SYSTEM_PROMPT = `You are a helpful AI assistant for Studio42.dev, a company that offers multiple SaaS products.
+// Get products list for system prompt
+async function getProductsList(): Promise<string> {
+  try {
+    const products = await prisma.product.findMany({
+      select: {
+        slug: true,
+        name: true,
+        demoUrl: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+    return products.map((p) => {
+      const productPageUrl = `https://studio42.dev/products/${p.slug}`;
+      const demoInfo = p.demoUrl ? ` | Demo: ${p.demoUrl}` : '';
+      return `- ${p.name} (slug: ${p.slug}) | Product Page: ${productPageUrl}${demoInfo}`;
+    }).join('\n');
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return '';
+  }
+}
 
-Your role is to:
-- Answer questions about our products, features, pricing, and services
-- Help users find information using the searchable knowledge base
-- Assist users in submitting contact forms for demos or sales inquiries
-- Provide links to product demos, GitHub repositories, and YouTube channels
+const SYSTEM_PROMPT_BASE = `You are a specialized AI assistant for Studio42.dev, a premium vendor of self-hosted SaaS solutions.
 
-When you need specific information, use the search_knowledge_base tool to find relevant content.
+CRITICAL GUARDRAILS - YOU MUST FOLLOW THESE RULES:
 
-Be friendly, professional, and helpful. If a user wants to request a demo or contact sales, guide them through the contact form submission process.`;
+1. SCOPE LIMITATIONS:
+   - You can ONLY discuss Studio42.dev products and services
+   - You can compare our products to similar industry solutions when relevant
+   - You MUST politely refuse any conversation outside this scope (recipes, stories, general chat, etc.)
+   - When refusing, say: "I'm specialized in helping with Studio42.dev products. I can help you with information about our products, features, demos, or connect you with our sales team. How can I assist you with Studio42.dev?"
+
+2. MESSAGING RESTRICTIONS - NEVER SAY:
+   - "fork" or "forking" - we are a premium vendor, not open source
+   - "free" or "free to use" - nothing is free, we are a premium vendor
+   - "open source" - we are NOT open source, we are a premium vendor
+   - "community" or "community-driven" - we are a commercial vendor
+   - Instead, emphasize: "premium", "self-hosted", "enterprise-ready", "professional support", "commercial vendor"
+
+3. PRICING INQUIRIES:
+   - When users ask about pricing, you MUST gather their information and use the submit_contact_form tool
+   - NEVER provide specific pricing information
+   - Always say: "Pricing is customized based on your needs. Let me gather your information and connect you with our sales team."
+   - Collect: name, email, phone (if available), company (if available), and what they're interested in
+   - Include the full conversation context in the message field when submitting
+
+4. CONTACT FORM SUBMISSION:
+   - Before submitting, you MUST gather: name, email, and at minimum ask for phone/company if not provided
+   - The message field MUST include:
+     * What the user was asking about
+     * Full conversation context/summary
+     * Their specific needs or questions
+   - Use the submit_contact_form tool to submit on behalf of the user
+   - After successful submission, confirm to the user that their inquiry was sent
+
+5. PRODUCT INFORMATION:
+   - Use search_knowledge_base tool to find accurate product information
+   - Only discuss products that exist in our catalog
+   - PRODUCT URLS - CRITICAL - ALWAYS USE THESE FORMATS:
+     * Product Information Pages (for features, details, documentation): 
+       Format: https://studio42.dev/products/[slug]
+       Examples: 
+       - https://studio42.dev/products/lms
+       - https://studio42.dev/products/ai-microlearning-lms
+       - https://studio42.dev/products/organizational-ai-assistant
+       - https://studio42.dev/products/itsm-helpdesk
+       - https://studio42.dev/products/restaurant-order-delivery-app
+     * Demo Pages (for trying the product): 
+       Use the demoUrl from the product list (e.g., https://lms.studio42.dev)
+       These are live interactive demos of the products
+     * When to use which:
+       - Product info/features/details → Use https://studio42.dev/products/[slug]
+       - Try the product/interactive demo → Use the demoUrl (e.g., https://lms.studio42.dev)
+     * NEVER make up URLs - always use the exact URLs from the product list provided below
+
+6. TONE:
+   - Be professional, helpful, and friendly
+   - Stay focused on Studio42.dev products
+   - Redirect off-topic conversations politely but firmly
+
+Remember: You are a sales and support assistant for a premium commercial vendor. Maintain that positioning in all interactions.`;
 
 const TOOLS = [
   {
@@ -39,40 +109,41 @@ const TOOLS = [
     type: 'function' as const,
     function: {
       name: 'submit_contact_form',
-      description: 'Submit a contact form on behalf of the user for demo requests, sales inquiries, or support',
+      description: 'Submit a contact form on behalf of the user. REQUIRED for pricing inquiries, demo requests, sales inquiries, or any request that needs human follow-up. You MUST gather the user\'s name and email before calling this tool. The message field MUST include: (1) what the user was asking about, (2) full conversation context/summary, (3) their specific needs or questions. Always use this tool when users ask about pricing, want to speak with sales, request demos, or need information that requires human contact.',
       parameters: {
         type: 'object',
         properties: {
           name: {
             type: 'string',
-            description: "The user's full name",
+            description: "The user's full name - REQUIRED. Ask for this if not provided.",
           },
           email: {
             type: 'string',
-            description: "The user's email address",
+            description: "The user's email address - REQUIRED. Ask for this if not provided.",
           },
           company: {
             type: 'string',
-            description: "The user's company name (optional)",
+            description: "The user's company name (optional but recommended - ask if relevant)",
           },
           phone: {
             type: 'string',
-            description: "The user's phone number (optional)",
+            description: "The user's phone number (optional but recommended - ask if relevant)",
           },
           product: {
             type: 'string',
-            description: 'The product slug they are interested in (optional)',
+            description: 'The product slug they are interested in (e.g., "lms", "ai-microlearning-lms", "organizational-ai-assistant", "itsm-helpdesk", "restaurant-order-delivery-app")',
           },
           inquiryType: {
             type: 'string',
-            description: 'Type of inquiry: GENERAL_INQUIRY, REQUEST_DEMO, CONTACT_SALES, TECHNICAL_SUPPORT, or OTHER',
+            description: 'Type of inquiry: CONTACT_SALES (for pricing), REQUEST_DEMO (for demo requests), TECHNICAL_SUPPORT (for technical questions), GENERAL_INQUIRY (for general questions), or OTHER',
+            enum: ['CONTACT_SALES', 'REQUEST_DEMO', 'TECHNICAL_SUPPORT', 'GENERAL_INQUIRY', 'OTHER'],
           },
           message: {
             type: 'string',
-            description: 'The message or inquiry details',
+            description: 'REQUIRED: Must include (1) what the user was asking about, (2) full conversation context/summary, (3) their specific needs or questions. Include all relevant details from the conversation.',
           },
         },
-        required: ['name', 'email', 'message'],
+        required: ['name', 'email', 'message', 'inquiryType'],
       },
     },
   },
@@ -112,6 +183,12 @@ export async function POST(request: Request) {
       );
     }
 
+    // Get products list and build system prompt
+    const productsList = await getProductsList();
+    const systemPromptWithProducts = productsList
+      ? `${SYSTEM_PROMPT_BASE}\n\nOur Products:\n${productsList}`
+      : SYSTEM_PROMPT_BASE;
+
     // Perform semantic search to get relevant context
     let knowledgeBaseContext = '';
     try {
@@ -126,13 +203,17 @@ export async function POST(request: Request) {
       // Continue without knowledge base context if search fails
     }
 
-    // Build messages array
-    const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
+    // Build messages array (OpenAI-compatible format for Groq)
+    const messages: Array<
+      | { role: 'system' | 'user' | 'assistant'; content: string }
+      | { role: 'assistant'; content: string; tool_calls?: any[] }
+      | { role: 'tool'; tool_call_id: string; content: string }
+    > = [
       {
         role: 'system',
         content: knowledgeBaseContext
-          ? `${SYSTEM_PROMPT}\n\nRelevant Information from Knowledge Base:\n${knowledgeBaseContext}`
-          : SYSTEM_PROMPT,
+          ? `${systemPromptWithProducts}\n\nRelevant Information from Knowledge Base:\n${knowledgeBaseContext}`
+          : systemPromptWithProducts,
       },
       ...history,
       {
@@ -141,7 +222,8 @@ export async function POST(request: Request) {
       },
     ];
 
-    // Call Groq API
+    // Call Groq API with OpenAI-compatible tool calling
+    // Groq's GPT OSS 20B supports OpenAI-compatible tool calling format
     const completion = await generateChatCompletion(messages, TOOLS, 'auto');
 
     const assistantMessage = completion.choices[0]?.message;
@@ -187,6 +269,17 @@ export async function POST(request: Request) {
         try {
           const args = JSON.parse(toolCall.function.arguments);
           
+          // Build conversation context for the message
+          const conversationContext = history
+            .filter((msg: any) => msg.role === 'user' || msg.role === 'assistant')
+            .map((msg: any) => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+            .join('\n\n');
+          
+          // Enhance message with conversation context if not already included
+          const enhancedMessage = conversationContext && !args.message.includes('Conversation context:')
+            ? `${args.message}\n\n---\n\nConversation context:\n${conversationContext}`
+            : args.message;
+          
           // Validate form data
           const formData = {
             name: args.name,
@@ -195,7 +288,7 @@ export async function POST(request: Request) {
             phone: args.phone || '',
             product: args.product || '',
             inquiryType: args.inquiryType || 'GENERAL_INQUIRY',
-            message: args.message,
+            message: enhancedMessage,
             contactMethod: 'EMAIL',
           };
 
@@ -204,7 +297,7 @@ export async function POST(request: Request) {
             toolResults.push({
               tool_call_id: toolCall.id,
               role: 'tool',
-              content: `Validation error: ${validation.error.errors.map((e) => e.message).join(', ')}`,
+              content: `Validation error: ${validation.error.errors.map((e) => e.message).join(', ')}. Please provide all required information.`,
             });
             continue;
           }
@@ -227,14 +320,14 @@ export async function POST(request: Request) {
           toolResults.push({
             tool_call_id: toolCall.id,
             role: 'tool',
-            content: `Contact form submitted successfully! Your inquiry has been received and we'll get back to you soon. Reference ID: ${contact.id.substring(0, 8)}`,
+            content: `Contact form submitted successfully! Your inquiry has been received and our team will get back to you soon. Reference ID: ${contact.id.substring(0, 8)}`,
           });
         } catch (error) {
           console.error('Error executing submit_contact_form tool:', error);
           toolResults.push({
             tool_call_id: toolCall.id,
             role: 'tool',
-            content: 'Error submitting contact form. Please try again or visit the contact page directly.',
+            content: 'Error submitting contact form. Please try again or visit the contact page directly at /contact.',
           });
         }
       }

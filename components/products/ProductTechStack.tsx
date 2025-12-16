@@ -89,10 +89,11 @@ export default function ProductTechStack({ product }: ProductTechStackProps) {
               }}
             >
               <div
+                className="product-tech-category"
                 style={{
                   fontSize: 'var(--font-size-xs)',
                   fontWeight: 'var(--font-weight-medium)',
-                  color: 'var(--color-primary)',
+                  color: 'var(--color-secondary-light)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
                   marginBottom: 'var(--spacing-xs)',

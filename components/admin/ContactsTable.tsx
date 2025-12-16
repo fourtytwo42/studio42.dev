@@ -175,7 +175,6 @@ export default function ContactsTable({
                   style={{
                     padding: 'var(--spacing-md)',
                     fontSize: 'var(--font-size-sm)',
-                    color: 'var(--color-text-primary)',
                     fontWeight: contact.read ? 'var(--font-weight-normal)' : 'var(--font-weight-medium)',
                   }}
                 >
@@ -184,12 +183,15 @@ export default function ContactsTable({
                     style={{
                       color: 'var(--color-primary)',
                       textDecoration: 'none',
+                      display: 'block',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.textDecoration = 'underline';
+                      e.currentTarget.style.opacity = '0.8';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.textDecoration = 'none';
+                      e.currentTarget.style.opacity = '1';
                     }}
                   >
                     {contact.name}
@@ -199,7 +201,6 @@ export default function ContactsTable({
                   style={{
                     padding: 'var(--spacing-md)',
                     fontSize: 'var(--font-size-sm)',
-                    color: 'var(--color-text-primary)',
                   }}
                 >
                   <a
@@ -207,6 +208,15 @@ export default function ContactsTable({
                     style={{
                       color: 'var(--color-primary)',
                       textDecoration: 'none',
+                      display: 'block',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.textDecoration = 'underline';
+                      e.currentTarget.style.opacity = '0.8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textDecoration = 'none';
+                      e.currentTarget.style.opacity = '1';
                     }}
                   >
                     {contact.email}

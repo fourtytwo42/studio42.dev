@@ -76,10 +76,11 @@ export default function ProductOverview({ product }: ProductOverviewProps) {
             >
               <div>
                 <div
+                  className="product-highlight-text"
                   style={{
                     fontSize: 'var(--font-size-sm)',
                     fontWeight: 'var(--font-weight-semibold)',
-                    color: 'var(--color-primary)',
+                    color: 'var(--color-secondary-light)',
                     marginBottom: 'var(--spacing-xs)',
                   }}
                 >
@@ -96,10 +97,11 @@ export default function ProductOverview({ product }: ProductOverviewProps) {
               </div>
               <div>
                 <div
+                  className="product-highlight-text"
                   style={{
                     fontSize: 'var(--font-size-sm)',
                     fontWeight: 'var(--font-weight-semibold)',
-                    color: 'var(--color-primary)',
+                    color: 'var(--color-secondary-light)',
                     marginBottom: 'var(--spacing-xs)',
                   }}
                 >
@@ -116,10 +118,11 @@ export default function ProductOverview({ product }: ProductOverviewProps) {
               </div>
               <div>
                 <div
+                  className="product-highlight-text"
                   style={{
                     fontSize: 'var(--font-size-sm)',
                     fontWeight: 'var(--font-weight-semibold)',
-                    color: 'var(--color-primary)',
+                    color: 'var(--color-secondary-light)',
                     marginBottom: 'var(--spacing-xs)',
                   }}
                 >

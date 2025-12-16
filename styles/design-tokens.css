@@ -1,40 +1,47 @@
 :root {
-  /* Colors - Primary (Gradient) */
-  --color-primary: #f97316;
-  --color-primary-dark: #ea580c;
-  --color-primary-light: #fb923c;
-  --gradient-primary: linear-gradient(135deg, #f97316 0%, #ef4444 50%, #dc2626 100%);
-  --gradient-primary-subtle: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  /* Colors - Primary (Soft Sunrise - Gentle & Subtle) */
+  --color-primary: #c2410c; /* Muted Deep Orange */
+  --color-primary-dark: #9a3412; /* Darker Muted Orange */
+  --color-primary-light: #ea580c; /* Medium Orange */
   
-  /* Colors - Secondary (Gradient) */
-  --color-secondary: #dc2626;
-  --color-secondary-dark: #b91c1c;
-  --gradient-secondary: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f97316 100%);
-  --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #ef4444 100%);
+  /* Colors - Secondary (Soft Golden - Gentle Warmth) */
+  --color-secondary: #d97706; /* Muted Golden */
+  --color-secondary-dark: #b45309; /* Darker Golden */
+  --color-secondary-light: #f59e0b; /* Light Golden */
   
-  /* Colors - Text */
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
-  --color-text-tertiary: #9ca3af;
+  /* Colors - Accent (Soft Coral/Pink - Delicate) */
+  --color-accent: #e11d48; /* Muted Rose */
+  --color-accent-dark: #be123c; /* Darker Rose */
   
-  /* Colors - Background */
-  --color-background: #ffffff;
-  --color-background-secondary: #f9fafb;
-  --color-background-tertiary: #f3f4f6;
+  /* Gradients - Subtle Sunrise Theme */
+  --gradient-primary: linear-gradient(135deg, #c2410c 0%, #ea580c 40%, #d97706 70%, #f59e0b 100%);
+  --gradient-primary-subtle: linear-gradient(135deg, #ea580c 0%, #d97706 50%, #f59e0b 100%);
+  --gradient-secondary: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fb7185 100%);
+  --gradient-accent: linear-gradient(135deg, #c2410c 0%, #d97706 50%, #e11d48 100%);
+  
+  /* Colors - Text (Darker for Sunrise Background) */
+  --color-text-primary: #1c1917; /* Dark Brown */
+  --color-text-secondary: #78716c; /* Medium Brown */
+  --color-text-tertiary: #a8a29e; /* Light Brown */
+  
+  /* Colors - Background (Soft Sunrise - Very Subtle) */
+  --color-background: #fefaf6; /* Very Light Cream */
+  --color-background-secondary: #fef3e7; /* Subtle Peach */
+  --color-background-tertiary: #fde8d6; /* Soft Warm */
   
   /* Colors - Status */
-  --color-status-available: #10b981;
+  --color-status-available: #059669;
   --color-status-available-bg: #d1fae5;
   --color-status-coming-soon: #f59e0b;
   --color-status-coming-soon-bg: #fef3c7;
-  --color-status-in-development: #2563eb;
-  --color-status-in-development-bg: #dbeafe;
+  --color-status-in-development: #f97316;
+  --color-status-in-development-bg: #fed7aa;
   
   /* Colors - Semantic */
-  --color-success: #10b981;
+  --color-success: #059669;
   --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-error: #dc2626;
+  --color-info: #f97316;
   
   /* Spacing - Base unit: 4px */
   --spacing-xs: 4px;
@@ -109,22 +116,46 @@
 
   /* Border */
   --color-border: rgba(0, 0, 0, 0.1);
+  
+  /* Hero Background - Subtle Sunrise */
+  --hero-background: linear-gradient(to bottom, #fefaf6 0%, #fef3e7 25%, #fde8d6 50%, #fed7aa 75%, #fcd34d 100%);
+  --hero-text-color: #1c1917;
+}
+
+/* Light mode sunrise orbs */
+.sunrise-orb-main {
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.2) 0%, rgba(217, 119, 6, 0.12) 30%, transparent 70%);
+}
+
+.sunrise-orb-secondary {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+}
+
+.sunrise-orb-tertiary {
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.08) 0%, transparent 70%);
 }
 
 /* Dark Mode */
 .dark {
-  /* Colors - Primary (Gradient) */
-  --color-primary: #fb923c;
-  --color-primary-dark: #f97316;
-  --color-primary-light: #fdba74;
-  --gradient-primary: linear-gradient(135deg, #fb923c 0%, #f87171 50%, #dc2626 100%);
-  --gradient-primary-subtle: linear-gradient(135deg, #fb923c 0%, #f87171 100%);
+  /* Colors - Primary (Rich Blues for Dark Mode) */
+  --color-primary: #1e293b; /* Slate Blue */
+  --color-primary-dark: #0f172a; /* Very Dark Blue */
+  --color-primary-light: #334155; /* Lighter Slate */
   
-  /* Colors - Secondary (Gradient) */
-  --color-secondary: #dc2626;
-  --color-secondary-dark: #b91c1c;
-  --gradient-secondary: linear-gradient(135deg, #dc2626 0%, #f87171 50%, #fb923c 100%);
-  --gradient-accent: linear-gradient(135deg, #fbbf24 0%, #fb923c 50%, #f87171 100%);
+  /* Colors - Secondary (Rich Teal/Cyan) */
+  --color-secondary: #14b8a6; /* Medium Teal */
+  --color-secondary-dark: #0e7490; /* Deep Teal */
+  --color-secondary-light: #2dd4bf; /* Bright Teal */
+  
+  /* Colors - Accent (Rich Emerald) */
+  --color-accent: #10b981; /* Emerald */
+  --color-accent-dark: #047857; /* Deep Emerald */
+  
+  /* Gradients - Rich & Deep for Dark Mode */
+  --gradient-primary: linear-gradient(135deg, #1e293b 0%, #334155 50%, #14b8a6 100%);
+  --gradient-primary-subtle: linear-gradient(135deg, #334155 0%, #14b8a6 100%);
+  --gradient-secondary: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+  --gradient-accent: linear-gradient(135deg, #1e293b 0%, #14b8a6 50%, #10b981 100%);
   
   /* Colors - Text */
   --color-text-primary: #f9fafb;
@@ -165,5 +196,44 @@
   --scrollbar-track: #1f2937;
   --scrollbar-thumb: #4b5563;
   --scrollbar-thumb-hover: #6b7280;
+  
+  /* Hero Background - Dark Mode */
+  --hero-background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #14b8a6 100%);
+  --hero-text-color: #f9fafb;
+}
+
+/* Dark mode orbs */
+.dark .sunrise-orb-main {
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.2) 0%, rgba(51, 65, 85, 0.15) 30%, transparent 70%);
+}
+
+.dark .sunrise-orb-secondary {
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
+}
+
+.dark .sunrise-orb-tertiary {
+  background: radial-gradient(circle, rgba(51, 65, 85, 0.12) 0%, transparent 70%);
+}
+
+/* Hero CTA buttons - Light mode */
+.hero-cta-primary {
+  background-color: #c2410c;
+  color: white;
+}
+
+.hero-cta-secondary {
+  border-color: #c2410c;
+  color: #c2410c;
+}
+
+/* Hero CTA buttons - Dark mode */
+.dark .hero-cta-primary {
+  background-color: white;
+  color: #1e293b;
+}
+
+.dark .hero-cta-secondary {
+  border-color: rgba(255, 255, 255, 0.8);
+  color: white;
 }
 

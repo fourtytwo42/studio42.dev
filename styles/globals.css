@@ -68,3 +68,17 @@ select {
               border-color var(--transition-base);
 }
 
+/* Dark mode fixes for product page text contrast */
+/* Use bright colors for maximum visibility on dark backgrounds */
+.dark .product-tech-category {
+  color: #34d399 !important; /* Bright Green for dark mode - maximum contrast */
+}
+
+.dark .product-pricing-text {
+  color: #34d399 !important; /* Bright Green for dark mode - maximum contrast */
+}
+
+.dark .product-highlight-text {
+  color: #34d399 !important; /* Bright Green for dark mode - maximum contrast */
+}
+

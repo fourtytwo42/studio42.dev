@@ -30,13 +30,15 @@ export async function generateChatCompletion(
   toolChoice?: 'auto' | 'none' | { type: 'function'; function: { name: string } }
 ) {
   const client = getGroqClient();
-  const model = getEnvVar('GROQ_MODEL', 'llama-3.1-70b-versatile');
+  // Use GPT OSS 20B model - OpenAI-compatible tool calling
+  const model = getEnvVar('GROQ_MODEL', 'openai/gpt-oss-20b');
 
+  // Groq uses OpenAI-compatible API format
   const response = await client.chat.completions.create({
     model,
     messages: messages as any,
-    tools: tools as any,
-    tool_choice: toolChoice as any,
+    tools: tools as any, // OpenAI-compatible tool format
+    tool_choice: toolChoice as any, // 'auto', 'none', or specific function
     temperature: 0.7,
     max_tokens: 2000,
   });

@@ -63,16 +63,63 @@ export default async function HomePage() {
         style={{
           padding: 'var(--spacing-5xl) var(--spacing-xl)',
           backgroundColor: 'var(--color-background-secondary)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div className="container">
+        {/* Decorative background */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '-50%',
+            right: '-20%',
+            width: '800px',
+            height: '800px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '-50%',
+            left: '-20%',
+            width: '600px',
+            height: '600px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+        />
+        
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-5xl)' }}>
+            <div
+              style={{
+                display: 'inline-block',
+                padding: 'var(--spacing-sm) var(--spacing-lg)',
+                backgroundColor: 'var(--color-background)',
+                borderRadius: 'var(--radius-full)',
+                fontSize: 'var(--font-size-sm)',
+                fontWeight: 'var(--font-weight-medium)',
+                color: 'var(--color-primary)',
+                marginBottom: 'var(--spacing-lg)',
+                border: '1px solid var(--color-border)',
+              }}
+            >
+              {products.length} Premium Products
+            </div>
             <h2
               style={{
-                fontSize: 'var(--font-size-3xl)',
-                fontWeight: 'var(--font-weight-bold)',
+                fontSize: 'var(--font-size-4xl)',
+                fontWeight: 'var(--font-weight-extrabold)',
                 color: 'var(--color-text-primary)',
                 marginBottom: 'var(--spacing-md)',
+                background: 'var(--gradient-primary)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
               }}
             >
               Our Products
@@ -81,11 +128,13 @@ export default async function HomePage() {
               style={{
                 fontSize: 'var(--font-size-lg)',
                 color: 'var(--color-text-secondary)',
-                maxWidth: '600px',
+                maxWidth: '700px',
                 margin: '0 auto',
+                lineHeight: 'var(--line-height-relaxed)',
               }}
             >
-              Explore our collection of premium, self-hosted SaaS solutions designed for modern organizations.
+              Explore our collection of premium, self-hosted SaaS solutions designed for modern organizations. 
+              Each product is built with enterprise-grade quality and complete customization options.
             </p>
           </div>
           <ProductGrid products={products} />

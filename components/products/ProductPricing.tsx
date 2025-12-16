@@ -38,10 +38,11 @@ export default function ProductPricing({ product }: ProductPricingProps) {
             Pricing
           </h2>
           <p
+            className="product-pricing-text"
             style={{
               fontSize: 'var(--font-size-2xl)',
               fontWeight: 'var(--font-weight-semibold)',
-              color: 'var(--color-primary)',
+              color: 'var(--color-secondary-light)',
             }}
           >
             {product.pricing}
